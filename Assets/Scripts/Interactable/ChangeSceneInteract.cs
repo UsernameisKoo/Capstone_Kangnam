@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSceneInteract : MonoBehaviour
 {
+    [SerializeField] string targetScene;
+
     public void ChangeScene()
     {
-        SceneManager.UnloadSceneAsync("Town");
-        SceneManager.LoadSceneAsync("Room", LoadSceneMode.Additive);
+        FindAnyObjectByType<GameSceneManager>().SwitchEnviromentScene(targetScene);
     }
 }

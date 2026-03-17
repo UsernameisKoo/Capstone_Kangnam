@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         characterMovement = GetComponent<CharacterMovement>();
-        characterInteract = GetComponent<CharacterInteract>(); ;
+        characterInteract = GetComponent<CharacterInteract>();
     }
 
     private void Start()

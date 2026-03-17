@@ -1,18 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PlayerData playerData;
 
-    // Update is called once per frame
-    void Update()
+    public void AddMoney(int money)
     {
-        
+        playerData.money += money;
     }
 }

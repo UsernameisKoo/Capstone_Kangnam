@@ -41,7 +41,7 @@ public class CharacterMovement : MonoBehaviour
     private void HandleMovement()
     {
         //moveDirection = moveVectorInput;
-        moveDirection = targetCamera.transform.forward * moveVectorInput.z;
+        moveDirection = targetCamera.transform.forward * moveVectorInput.y;
         moveDirection += targetCamera.transform.right * moveVectorInput.x;
         moveDirection.y = 0f;
         moveDirection.Normalize();

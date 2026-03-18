@@ -1,27 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class CharacterMovement : MonoBehaviour
 {
     Rigidbody rb;
 
     Vector3 moveVectorInput;
-    Vector3 moveDirection;
-    Vector3 rotationDirection; 
-    [SerializeField] float speed = 10f;
-    [SerializeField] float rotationSpeed = 5f;
-    [SerializeField] Camera targetCamera;
-    Animate animate;
 
+    [SerializeField] float speed = 10f;
+    [SerializeField] float rotationSpeed = 180f;
+
+    Animate animate;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animate = GetComponentInChildren<Animate>();
     }
+
     public void AddMoveVectorInput(Vector3 moveVector)
     {
         moveVectorInput = moveVector;
@@ -29,43 +24,49 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleRotation();
         HandleAnimation();
+    }
+
+    private void FixedUpdate()
+    {
+        HandleRotation();
+        HandleMovement();
     }
 
     private void HandleAnimation()
     {
-        animate.motion = moveVectorInput.magnitude;
-    }
-    private void HandleMovement()
-    {
-        //moveDirection = moveVectorInput;
-        moveDirection = targetCamera.transform.forward * moveVectorInput.y;
-        moveDirection += targetCamera.transform.right * moveVectorInput.x;
-        moveDirection.y = 0f;
-        moveDirection.Normalize();
+        float forwardInput = moveVectorInput.y;
 
-        Vector3 moveVelocity = moveDirection * speed;
-        moveVelocity += Physics.gravity;
+        if (Mathf.Abs(forwardInput) < 0.2f)
+            forwardInput = 0f;
 
-        rb.velocity = moveVelocity;
+        animate.motion = Mathf.Abs(forwardInput);
     }
 
     private void HandleRotation()
     {
-        if(moveDirection.magnitude > 0f)
+        float turnInput = moveVectorInput.x;
+
+        // 미세 입력 무시
+        if (Mathf.Abs(turnInput) < 0.2f)
+            turnInput = 0f;
+
+        if (turnInput != 0f)
         {
-            rotationDirection = moveDirection;
-
+            float turnAmount = turnInput * rotationSpeed * Time.fixedDeltaTime;
+            transform.Rotate(0f, turnAmount, 0f);
         }
-        if (rotationDirection != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(rotationDirection);
-            Quaternion rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
 
-            transform.rotation = rotation;
+    private void HandleMovement()
+    {
+        float forwardInput = moveVectorInput.y;
 
-        }
+        // 미세 입력 무시
+        if (Mathf.Abs(forwardInput) < 0.2f)
+            forwardInput = 0f;
+
+        Vector3 moveDirection = transform.forward * forwardInput * speed;
+        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
     }
 }

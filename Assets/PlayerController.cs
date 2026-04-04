@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-        DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
         mainCamera = Camera.main;
     }
@@ -48,6 +47,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) h = 1f;
         if (Input.GetKey(KeyCode.W)) v = 1f;
         if (Input.GetKey(KeyCode.S)) v = -1f;
+
+
 
         if (mainCamera != null)
         {

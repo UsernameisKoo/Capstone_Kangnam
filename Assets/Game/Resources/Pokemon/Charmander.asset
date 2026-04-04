@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177d2a6b275cce74d93b3872cf06afef, type: 3}
+  m_Name: Charmander
+  m_EditorClassIdentifier: 
+  pokemonName: Charmander
+  dexNumber: 4
+  icon: {fileID: 21300000, guid: 1db8c546a02d2f846bc632f0c44fa9db, type: 3}
+  primaryType: 3
+  secondaryType: 12
+  hpStat: 39
+  atkStat: 52
+  defStat: 43
+  spAtkStat: 60
+  spDefStat: 50
+  spdStat: 65
+  expGroup: 3
+  catchRate: 255
+  expStat: 62
+  maleChance: 87.5
+  cry: {fileID: 8300000, guid: 0a36bae10fcd5af4aab499e34d70cf8b, type: 3}
+  learnableAbilities:
+  - {fileID: 11400000, guid: ed31c51450bda3a43b09acba758aebfb, type: 2}
+  learnableMoves:
+  - skeleton: {fileID: 11400000, guid: e0cdc3c7c3082ae4cbc5d9048d37e456, type: 2}
+    level: 1

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177d2a6b275cce74d93b3872cf06afef, type: 3}
+  m_Name: Bulbasaur
+  m_EditorClassIdentifier: 
+  pokemonName: Bulbasaur
+  dexNumber: 1
+  icon: {fileID: 21300000, guid: e1845f52a5ce9dc46b79e1b19e4ede6b, type: 3}
+  primaryType: 1
+  secondaryType: 9
+  hpStat: 45
+  atkStat: 49
+  defStat: 49
+  spAtkStat: 65
+  spDefStat: 65
+  spdStat: 45
+  expGroup: 3
+  catchRate: 45
+  expStat: 64
+  maleChance: 87.5
+  cry: {fileID: 8300000, guid: 647390786ca02654ba5dfc59a46fa6e1, type: 3}
+  levelEvolution:
+    evolution: {fileID: 11400000, guid: 465dfba30cc3f204caca4daae45b5c4e, type: 2}
+    level: 16
+  itemEvolutions: []
+  learnableAbilities:
+  - {fileID: 11400000, guid: 49383a69d739987479c47bc34ddebb11, type: 2}
+  - {fileID: 11400000, guid: 1ad8ec564ce3506449fffdb7f063a1c4, type: 2}
+  learnableMoves:
+  - skeleton: {fileID: 11400000, guid: 2404ff190a51bde4693561c0900ea5e3, type: 2}
+    level: 1
+  - skeleton: {fileID: 11400000, guid: 4e039cda0cf8d4c438de995d420e27d8, type: 2}
+    level: 1
+  - skeleton: {fileID: 11400000, guid: 64bb3c1765befcd4a861f188b7343072, type: 2}
+    level: 3
+  - skeleton: {fileID: 11400000, guid: d9e095f2a4ce01e4fae9fbf9e5ab4a34, type: 2}
+    level: 6
+  - skeleton: {fileID: 11400000, guid: 36efb10b89460f24c9792318c59a8297, type: 2}
+    level: 9
+  - skeleton: {fileID: 11400000, guid: 53b99528907a64b42b1161ef93c908af, type: 2}
+    level: 12
+  - skeleton: {fileID: 11400000, guid: 2f13882e6f52bb7488bf09171c77ef1d, type: 2}
+    level: 15
+  - skeleton: {fileID: 11400000, guid: 5e2580e2471a2ed4aa92c803413201c9, type: 2}
+    level: 15

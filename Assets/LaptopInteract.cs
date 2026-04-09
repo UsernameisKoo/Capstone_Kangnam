@@ -9,38 +9,104 @@ public class LaptopInteract : MonoBehaviour
     CameraController cameraController;
     bool playerNearby = false;
     bool isZoomed = false;
+    bool isStoryLocked = false;
 
     void Start()
     {
         cameraController = FindObjectOfType<CameraController>();
-        laptopCanvas.SetActive(false); // 처음엔 꺼두기
+        laptopCanvas.SetActive(false);
     }
 
     void Update()
     {
-        if (playerNearby && Input.GetKeyDown(KeyCode.E))
+        // 근처에서 E / Space / Enter / RightArrow 누르면 토글
+        if (playerNearby && IsZoomInputPressed())
         {
-            if (!isZoomed)
+            ToggleZoom();
+        }
+        // 근처에 있고, 우클릭으로 이 노트북 오브젝트를 클릭하면 줌인
+        if (playerNearby && Input.GetMouseButtonDown(0))
+        {
+            TryZoomInByLeftClick();
+        }
+        if (isStoryLocked) return;
+    }
+    bool IsZoomInputPressed()
+    {
+        return Input.GetKeyDown(KeyCode.E)
+            || Input.GetKeyDown(KeyCode.Space)
+            || Input.GetKeyDown(KeyCode.Return)      // 엔터
+            || Input.GetKeyDown(KeyCode.KeypadEnter) // 키패드 엔터
+            || Input.GetKeyDown(KeyCode.RightArrow);
+    }
+
+    void ToggleZoom()
+    {
+        if (!isZoomed)
+        {
+            ZoomIn();
+        }
+        else
+        {
+            ZoomOut();
+        }
+    }
+
+    void TryZoomInByLeftClick()
+    {
+        Camera cam = Camera.main;
+        if (cam == null)
+        {
+            Debug.Log("카메라 없음");
+            return;
+        }
+
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 2f);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log("맞은 오브젝트: " + hit.transform.name);
+
+            LaptopInteract clickedLaptop = hit.transform.GetComponentInParent<LaptopInteract>();
+
+            if (clickedLaptop == this)
             {
-                ZoomIn();
+                Debug.Log("노트북 클릭 성공!");
+                if (!isZoomed)
+                {
+                    ZoomIn();
+                }
             }
-            else
-            {
-                ZoomOut();
-            }
+        }
+        else
+        {
+            Debug.Log("Raycast 아무것도 안 맞음");
         }
     }
 
     void ZoomIn()
     {
-        isZoomed = true; // 추가!
+        isZoomed = true;
         laptopCanvas.SetActive(true);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         Debug.Log("ZoomIn 실행!");
+
+        LaptopStorySequence sequence = GetComponent<LaptopStorySequence>();
+        if (sequence != null && !sequence.IsPlaying())
+        {
+            sequence.StartSequence();
+        }
     }
 
     void ZoomOut()
     {
-        isZoomed = false; // 추가!
+        isZoomed = false;
         laptopCanvas.SetActive(false);
         Debug.Log("ZoomOut 실행!");
     }
@@ -62,4 +128,10 @@ public class LaptopInteract : MonoBehaviour
             if (isZoomed) ZoomOut();
         }
     }
+
+    public void SetStoryLock(bool locked)
+    {
+        isStoryLocked = locked;
+    }
+
 }
